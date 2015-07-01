@@ -198,6 +198,10 @@ class MapadoSimstringExtension extends Extension
                 $className = 'Orm';
                 $persistenceService = new Reference('doctrine');
                 break;
+            case 'mongodb':
+                $className = 'Odm';
+                $persistenceService = new Reference('doctrine_mongodb.odm.document_manager');
+                break;
             default:
                 $msg = sprintf('The %s driver is not yet supported', $driver);
                 throw new \InvalidArgumentException($msg);
