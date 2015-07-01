@@ -4,7 +4,7 @@ namespace Mapado\SimstringBundle\DataTransformer;
 
 use Mapado\SimstringBundle\Model\SimstringResult;
 
-class Odm implements TransformerInterface
+class Orm implements TransformerInterface
 {
     /**
      * persistenceService
@@ -123,12 +123,15 @@ class Odm implements TransformerInterface
      * getRepository
      *
      * @access private
-     * @return DocumentRepository
+     * @return EntityRepository
      */
     private function getRepository()
     {
         $manager = (isset($this->options['manager']) ? $this->options['manager'] : null);
-        return $this->persistenceService->getRepository($manager);
+        $entityManager = $this->persistenceService->getManager($manager);
+        $repo = $entityManager->getRepository($this->model);
+
+        return $repo;
     }
 
     /**
